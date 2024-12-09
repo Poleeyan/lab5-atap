@@ -16,18 +16,14 @@ namespace lab5
             int maxValue = 100;
             Random rand = new Random();
             int[,] matrix = new int[rows, cols];
-
-            // Генерація матриці
-            for (int i = 0; i < rows; i++)
+            for (int i = 0; i < rows; i++) // Генерація матриці
             {
                 for (int j = 0; j < cols; j++)
                 {
                     matrix[i, j] = rand.Next(minValue, maxValue + 1);
                 }
             }
-
-            // Виведення матриці
-            Console.WriteLine("Згенерована матриця:");
+            Console.WriteLine("Згенерована матриця:"); // Виведення матриці
             for (int i = 0; i < rows; i++)
             {
                 for (int j = 0; j < cols; j++)
@@ -36,10 +32,8 @@ namespace lab5
                 }
                 Console.WriteLine();
             }
-
-            // Пошук локальних мінімумів
             int count = 0;
-            Console.WriteLine("\nЛокальні мінімуми:");
+            Console.WriteLine("\nЛокальнi мiнiмуми:"); // Пошук локальних мінімумів
             for (int i = 0; i < rows; i++)
             {
                 for (int j = 0; j < cols; j++)
@@ -51,10 +45,8 @@ namespace lab5
                         for (int dj = -1; dj <= 1; dj++)
                         {
                             if (di == 0 && dj == 0) continue; // Пропустити сам елемент
-
                             int ni = i + di; // Рядок сусіда
                             int nj = j + dj; // Стовпець сусіда
-
                             if (ni >= 0 && ni < rows && nj >= 0 && nj < cols) // Перевірка меж
                             {
                                 if (matrix[ni, nj] <= matrix[i, j])
@@ -66,7 +58,6 @@ namespace lab5
                         }
                         if (!isLocalMinimum) break;
                     }
-
                     if (isLocalMinimum)
                     {
                         count++;
@@ -74,8 +65,7 @@ namespace lab5
                     }
                 }
             }
-
-            Console.WriteLine($"\nКількість локальних мінімумів: {count}");
+            Console.WriteLine($"\nКiлькiсть локальних мiнiмумiв: {count}");
         }
     }
 }
@@ -86,48 +76,38 @@ namespace lab5_task2
     {
         static void Main()
         {
-            // 1. Генерація одновимірного масиву з випадковими числами
-            int[] array = new int[20];
-            Random random = new Random();
+            // Виконуємо всі операції в одному методі
+            int[] arr = new int[20];
+            Random rand = new Random();
 
-            for (int i = 0; i < array.Length; i++)
+            // Заповнюємо масив випадковими значеннями в діапазоні 0...15
+            for (int i = 0; i < arr.Length; i++)
             {
-                array[i] = random.Next(0, 16); // Випадкові числа в діапазоні [0, 15]
+                arr[i] = rand.Next(0, 16);
             }
 
-            // 2. Виведення початкового масиву
             Console.WriteLine("Початковий масив:");
-            Console.WriteLine(string.Join(", ", array));
+            PrintArray(arr);
 
-            // 3. Знаходимо перший мінімальний та максимальний елементи
-            int minIndex = 0, maxIndex = 0;
-            for (int i = 1; i < array.Length; i++)
+            // Знаходимо індекси мінімального та максимального елементів
+            int minIndex = Array.IndexOf(arr, arr.Min());
+            int maxIndex = Array.IndexOf(arr, arr.Max());
+
+            // Сортуємо всі елементи в порядку зростання
+            Array.Sort(arr);
+
+            Console.WriteLine("Вiдсортований масив:");
+            PrintArray(arr);
+
+            // Локальна функція для друку масиву
+            void PrintArray(int[] array)
             {
-                if (array[i] < array[minIndex]) minIndex = i;
-                if (array[i] > array[maxIndex]) maxIndex = i;
-            }
-
-            // 4. Визначення початку та кінця підмасиву для сортування
-            int start = Math.Min(minIndex, maxIndex) + 1;
-            int end = Math.Max(minIndex, maxIndex) - 1;
-
-            // 5. Сортування елементів між першим мінімумом і максимумом методом бульбашки
-            for (int i = start; i < end; i++)
-            {
-                for (int j = start; j < end - (i - start); j++)
+                foreach (int num in array)
                 {
-                    if (array[j] > array[j + 1])
-                    {
-                        int temp = array[j];
-                        array[j] = array[j + 1];
-                        array[j + 1] = temp;
-                    }
+                    Console.Write(num + " ");
                 }
+                Console.WriteLine();
             }
-
-            // 6. Виведення перетвореного масиву
-            Console.WriteLine("Перетворений масив:");
-            Console.WriteLine(string.Join(", ", array));
         }
     }
 }
