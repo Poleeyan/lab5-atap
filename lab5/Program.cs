@@ -76,38 +76,25 @@ namespace lab5_task2
     {
         static void Main()
         {
-            // Виконуємо всі операції в одному методі
             int[] arr = new int[20];
             Random rand = new Random();
-
-            // Заповнюємо масив випадковими значеннями в діапазоні 0...15
-            for (int i = 0; i < arr.Length; i++)
+            for (int i = 0; i < arr.Length; i++) 
             {
-                arr[i] = rand.Next(0, 16);
+                arr[i] = rand.Next(0, 16); // Заповнюємо масив випадковими значеннями в діапазоні 0...15
             }
-
             Console.WriteLine("Початковий масив:");
-            PrintArray(arr);
-
-            // Знаходимо індекси мінімального та максимального елементів
-            int minIndex = Array.IndexOf(arr, arr.Min());
-            int maxIndex = Array.IndexOf(arr, arr.Max());
-
-            // Сортуємо всі елементи в порядку зростання
-            Array.Sort(arr);
-
-            Console.WriteLine("Вiдсортований масив:");
-            PrintArray(arr);
-
-            // Локальна функція для друку масиву
-            void PrintArray(int[] array)
+            foreach (int num in arr)
             {
-                foreach (int num in array)
-                {
-                    Console.Write(num + " ");
-                }
-                Console.WriteLine();
+                Console.Write(num + " ");
             }
+            Console.WriteLine();
+            Array.Sort(arr); // Сортуємо всі елементи в порядку зростання
+            Console.WriteLine("Вiдсортований масив:");
+            foreach (int num in arr)
+            {
+                Console.Write(num + " ");
+            }
+            Console.WriteLine();
         }
     }
 }
